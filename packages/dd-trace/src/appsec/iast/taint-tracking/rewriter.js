@@ -89,6 +89,9 @@ function getCompileMethodFn (compileMethod) {
     try {
       if (isPrivateModule(filename) && isNotLibraryFile(filename)) {
         const rewritten = rewriteFn(content, filename)
+        if (filename.indexOf('userProfile.js') > -1) {
+          console.log(rewritten?.content)
+        }
 
         if (rewritten?.literalsResult && hardcodedSecretCh.hasSubscribers) {
           hardcodedSecretCh.publish(rewritten.literalsResult)
