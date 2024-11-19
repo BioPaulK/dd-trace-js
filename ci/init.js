@@ -6,6 +6,14 @@ const isJestWorker = !!process.env.JEST_WORKER_ID
 const isCucumberWorker = !!process.env.CUCUMBER_WORKER_ID
 const isMochaWorker = !!process.env.MOCHA_WORKER_ID
 
+const isNpm = () => {
+  return process.argv[1].includes('bin/npm')
+}
+
+const isYarn = () => {
+  return process.argv[1].includes('bin/yarn')
+}
+
 const options = {
   startupLogs: false,
   isCiVisibility: true,
@@ -13,6 +21,12 @@ const options = {
 }
 
 let shouldInit = true
+
+if (isNpm() || isYarn()) {
+  shouldInit = false
+} else {
+  console.log('init')
+}
 
 const isAgentlessEnabled = isTrue(process.env.DD_CIVISIBILITY_AGENTLESS_ENABLED)
 
